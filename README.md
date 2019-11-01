@@ -1,5 +1,5 @@
 
-[中文](https://github.com/go-xorm/cmd/blob/master/README_CN.md)
+[中文](https://gitea.com/xorm/cmd/blob/master/README_CN.md)
 
 # xorm tools
 
@@ -7,9 +7,9 @@ xorm tools is a set of  tools for database operation.
 
 ## Source Install
 
-`go get github.com/go-xorm/cmd/xorm`
+`go get xorm.io/cmd/xorm`
 
-and you should install the depends below:
+and you will install the depends below:
 
 * github.com/go-xorm/xorm
 
@@ -58,6 +58,9 @@ mymysql:
 
 postgres:
 `xorm reverse postgres "dbname=xorm_test sslmode=disable" templates/goxorm`
+
+mssql:
+`xorm reverse mssql "server=test;user id=testid;password=testpwd;database=testdb" templates/goxorm`
 
 will generated go files in `./model` directory
 

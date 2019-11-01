@@ -16,7 +16,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/go-xorm/core"
+	"xorm.io/core"
 	"github.com/go-xorm/xorm"
 	"github.com/lunny/log"
 
@@ -53,7 +53,8 @@ func init() {
 }
 
 var (
-	genJson bool = false
+	genJson                                      bool     = false
+	ignoreColumnsJSON, created, updated, deleted []string = []string{}, []string{"created_at"}, []string{"updated_at"}, []string{"deleted_at"}
 )
 
 func printReversePrompt(flag string) {
@@ -158,6 +159,23 @@ func runReverse(cmd *Command, args []string) {
 		if j, ok := configs["prefix"]; ok {
 			prefix = j
 		}
+
+		if j, ok := configs["ignoreColumnsJSON"]; ok {
+			ignoreColumnsJSON = strings.Split(j, ",")
+		}
+
+		if j, ok := configs["created"]; ok {
+			created = strings.Split(j, ",")
+		}
+
+		if j, ok := configs["updated"]; ok {
+			updated = strings.Split(j, ",")
+		}
+
+		if j, ok := configs["deleted"]; ok {
+			deleted = strings.Split(j, ",")
+		}
+
 	}
 
 	if langTmpl, ok = langTmpls[lang]; !ok {
@@ -257,7 +275,7 @@ func runReverse(cmd *Command, args []string) {
 				source, err = langTmpl.Formater(string(tplcontent))
 				if err != nil {
 					log.Errorf("%v", err)
-					return err
+					source = string(tplcontent)
 				}
 			} else {
 				source = string(tplcontent)
@@ -301,7 +319,7 @@ func runReverse(cmd *Command, args []string) {
 					source, err = langTmpl.Formater(string(tplcontent))
 					if err != nil {
 						log.Errorf("%v-%v", err, string(tplcontent))
-						return err
+						source = string(tplcontent)
 					}
 				} else {
 					source = string(tplcontent)

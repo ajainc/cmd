@@ -9,7 +9,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/go-xorm/core"
+	"xorm.io/core"
 )
 
 type LangTmpl struct {
@@ -54,4 +54,12 @@ func unTitle(src string) string {
 	} else {
 		return strings.ToLower(string(src[0])) + src[1:]
 	}
+}
+
+func upTitle(src string) string {
+	if src == "" {
+		return ""
+	}
+
+	return strings.ToUpper(src)
 }
