@@ -1,4 +1,4 @@
-module xorm.io/cmd
+module github.com/ajainc/xorm-cmd
 
 go 1.14
 
